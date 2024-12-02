@@ -1,0 +1,61 @@
+group = "com.example.flutter_sunmi"
+version = "1.0"
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.1.0")
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: "com.android.library"
+
+android {
+    if (project.android.hasProperty("namespace")) {
+        namespace = "com.example.flutter_sunmi"
+    }
+
+    compileSdk = 34
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdk = 21
+    }
+
+    dependencies {
+        implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+        implementation 'androidx.appcompat:appcompat:1.6.1'
+        implementation 'com.google.android.material:material:1.9.0'
+        implementation 'com.sunmi:sunmiui:1.1.27'
+        implementation 'com.sunmi:printerlibrary:1.0.15'
+        implementation 'com.sunmi:PayLib-release:2.0.15'
+        implementation 'org.bouncycastle:bcpkix-jdk15on:1.70'
+        testImplementation("junit:junit:4.13.2")
+        testImplementation("org.mockito:mockito-core:5.0.0")
+    }
+
+    testOptions {
+        unitTests.all {
+            testLogging {
+               events "passed", "skipped", "failed", "standardOut", "standardError"
+               outputs.upToDateWhen {false}
+               showStandardStreams = true
+            }
+        }
+    }
+}
